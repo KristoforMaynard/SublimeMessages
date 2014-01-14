@@ -1,0 +1,3 @@
+[
+  { "keys": ["super+alt+c"], "command": "mark_errors_list" }
+]
