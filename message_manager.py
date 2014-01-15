@@ -239,7 +239,8 @@ class LineMessageSource(object):
 
     def _load_settings(self):
         prefix = self.prefix
-        self._settings = sublime.load_settings(prefix + ".sublime-settings")
+        settings_fname = "Messages" + prefix + ".sublime-settings"
+        self._settings = sublime.load_settings(settings_fname)
 
         key = prefix + "MessageSource"
         self._settings.clear_on_change(key)  # is this necessary?
