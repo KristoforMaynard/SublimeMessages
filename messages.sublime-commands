@@ -1,0 +1,5 @@
+[
+  { "caption": "Sublemake: Clear Messages (All)", "command": "clear_all_line_messages" },
+  { "caption": "Sublemake: Clear Messages (Current File)", "command": "clear_view_line_messages" },
+  { "caption": "Sublemake: Show Error List", "command": "mark_errors_list" },
+]
