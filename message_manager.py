@@ -172,7 +172,7 @@ class LineMessageManager(object):
         return errlst
 
     def change_root_view(self, view):
-        window = view.window()
+        window = sublime.active_window()
         w_id = window.id()
         fname = view.file_name()
         for src, _ in self.sources:
