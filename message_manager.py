@@ -171,6 +171,22 @@ class LineMessageManager(object):
         errlst.sort(key=attrgetter("orig_line"))
         return errlst
 
+    def change_root_view(self, view):
+        window = view.window()
+        w_id = window.id()
+        fname = view.file_name()
+        for src, _ in self.sources:
+            if w_id in src.messages and fname in src.messages[w_id]:
+                f_info = src.messages[w_id][fname]
+                # if this was the root view, look for another to take
+                # ownership of the file info object
+                if f_info.root_view == view:
+                    f_info.root_view = None
+                    for other in window.views():
+                        if other.file_name() == fname and other is not view:
+                            f_info.root_view = other
+                            break
+
 class LineMessageSource(object):
     """ This class does the interfacing with whatever layer wants to have line
     messages, whether it's a build system, or a linter, etc.
@@ -368,21 +384,10 @@ class LineMessageListener(sublime_plugin.EventListener):
     #             regions[severity] = view.get_regions(__marker_key__ + severity)
     #         _errors[w_id][fname].saved_regions = regions
 
-    # @staticmethod
-    # def on_close(view):
-    #     # print("close", view.file_name())
-    #     window = sublime.active_window()
-    #     w_id = window.id()
-    #     fname = view.file_name()
-    #     if w_id in _errors and fname in _errors[w_id]:
-    #         f_info = _errors[w_id][fname]
-    #         # if this was the root view, look for others
-    #         if f_info.root_view == view:
-    #             f_info.root_view = None
-    #             for other in window.views():
-    #                 if other.file_name() == fname and other is not view:
-    #                     f_info.root_view = other
-    #                     break
+    @staticmethod
+    def on_close(view):
+        # print("close", view.file_name())
+        message_manager.change_root_view(view)
 
     @staticmethod
     def on_clone(view):
