@@ -275,6 +275,7 @@ class LineMessageSource(object):
         view when it is created """
         w_id = window.id()
         fname = view.file_name()
+        self.clear_view(view)
         if w_id not in self.messages or fname not in self.messages[w_id]:
             window.run_command("mark_errors_update_status")
             return None
@@ -286,7 +287,8 @@ class LineMessageSource(object):
         if f_info.root_view is not None:
             root_view = f_info.root_view
             for severity in self.markers.keys():
-                regions[severity] = root_view.get_regions(self.marker_key + severity)
+                regions[severity] = root_view.get_regions(self.marker_key + \
+                                                          severity)
         # this exists when a view is saved so it can be re-opened properly?
         elif f_info.saved_regions is not None:
             regions = f_info.saved_regions
