@@ -143,9 +143,10 @@ class LineMessageManager(object):
                 if err_reg is not None:
                     msg = ""
                     for info in src.messages[w_id][fname][int(err_reg.xpos)]:
-                        if msg != "":
-                            msg += " "
-                        msg += info.message
+                        if info.message is not None:
+                            if msg != "":
+                                msg += " "
+                            msg += info.message
 
                 if msg is None:
                     view.erase_status(src.status_key)
