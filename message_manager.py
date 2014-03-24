@@ -201,9 +201,9 @@ class LineMessageSource(object):
     pretty_prefix = None # for status message, filled by init of not overridden
     # order indicates severity / preference of icon when > 1 err on a line
     # the value is a tuple of (marker type or icon path, scope name)
-    markers = OrderedDict([("info", ("dot", "sublemake_mark.info")),
-                           ("warning", ("circle", "sublemake_mark.warning")),
-                           ("error", ("bookmark", "sublemake_mark.error"))])
+    markers = OrderedDict([("info", ("dot", "SublimeMessages.info")),
+                           ("warning", ("circle", "SublimeMessages.warning")),
+                           ("error", ("bookmark", "SublimeMessages.error"))])
     sev_lookup = None
 
     # these get initialized by __init__ from self.prefix
