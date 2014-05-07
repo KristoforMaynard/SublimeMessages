@@ -52,8 +52,8 @@ class ErrorInfo(object):
         try:
             self.order = keys.index(severity)
         except ValueError:
-            severity = src.markers[src.markers.keys()[-1]]
-            self.order = len(keys) - 1
+            severity = keys[0]
+            self.order = 0
         self.orig_line = line
         self.severity = severity
         self.message = message
