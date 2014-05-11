@@ -44,9 +44,11 @@ class ErrorInfo(object):
     order = None
     extra = None
     errid = None
+    symbol = None
     # region = None  # None, or a sublime text region for marking a line
 
-    def __init__(self, src, line, severity, message, extra=False, errid=None):
+    def __init__(self, src, line, severity, message, extra=False, errid=None,
+                 symbol=None):
         # if severity is not recognized, choose the lowest one
         keys = list(src.markers.keys())
         try:
@@ -59,6 +61,7 @@ class ErrorInfo(object):
         self.message = message
         self.extra = extra
         self.errid = errid
+        self.symbol = symbol
         self.order = src.sev_lookup[severity]
 
 
