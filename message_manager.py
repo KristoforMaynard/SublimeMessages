@@ -3,6 +3,7 @@ from __future__ import print_function
 from operator import itemgetter
 from collections import OrderedDict
 from operator import attrgetter
+import os
 
 import sublime
 import sublime_plugin
@@ -204,9 +205,6 @@ class LineMessageSource(object):
     pretty_prefix = None # for status message, filled by init of not overridden
     # order indicates severity / preference of icon when > 1 err on a line
     # the value is a tuple of (marker type or icon path, scope name)
-    markers = OrderedDict([("info", ("dot", "SublimeMessages.info")),
-                           ("warning", ("circle", "SublimeMessages.warning")),
-                           ("error", ("bookmark", "SublimeMessages.error"))])
     sev_lookup = None
 
     # these get initialized by __init__ from self.prefix
@@ -240,6 +238,32 @@ class LineMessageSource(object):
         if self._settings is None:
             self._load_settings()
         return self._settings
+
+    def get_icon_path(self):
+        pth0 = "Packages/Messages/"
+        if not os.path.isdir(pth0):
+            pth0 = "Packages/SublimeMessages/"
+
+        pth = multiconf.get(self.settings, "icon_style", None)
+        if pth is None:
+            s = sublime.load_settings("Messages.sublime-settings")
+            pth = multiconf.get(s, "icon_style", "default32")
+
+        return pth0 + pth
+
+    @property
+    def markers(self):
+        pth = self.get_icon_path()
+        upth = pth + "/unknown.png"
+        ipth = pth + "/info.png"
+        wpth = pth + "/warning.png"
+        epth = pth + "/error.png"
+        ret = OrderedDict([("unknown", (upth, "SublimeMessages.unknown")),
+                           ("info", (ipth, "SublimeMessages.info")),
+                           ("warning", (wpth, "SublimeMessages.warning")),
+                           ("error", (epth, "SublimeMessages.error")),
+                          ])
+        return ret
 
     def _load_settings(self):
         prefix = self.prefix
