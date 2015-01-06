@@ -13,4 +13,9 @@ In your Messages.sublime-settings file, you can set `icon_style` to one of ["def
  - `SublimeMessages.info`
  - `SublimeMessages.unknown`
 
+Note
+----
+
+The settings for this and all associated plugins are automatically read using [multiconf][https://gist.github.com/facelessuser/3625497]. Settings filenames are `Messages<PluginName>.sublime-settings`.
+
 [SublimeMessagesPylint]: https://github.com/KristoforMaynard/SublimeMessagesPylint

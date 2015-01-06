@@ -4,7 +4,18 @@ import socket
 import sublime
 import re
 
-""" Multiconf is a module that allows you to read platforma and/or host
+"""
+Copyright (C) 2012 Isaac Muse
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Licensed under MIT.
+
+Thanks to: biermeester and matthjes for their ideas and contributions
+
+Multiconf is a module that allows you to read platforma and/or host
 specific configuration values to be used by Sublime Text 2 plugins.
 
 Using this module's `get` function, allows the user to replace any settings
@@ -39,7 +50,6 @@ machine it's on. On an MS Windows machine the value returned by `get` will be
 __version__ = "1.0"
 
 __CURRENT_HOSTNAME = socket.gethostname().lower()
-__CURRENT_PLATFORM = sublime.platform()
 
 QUALIFIERS = r"""([A-Za-z\d_]*):([^;]*)(?:;|$)"""
 
@@ -138,7 +148,7 @@ def __host_match(h):
 
 
 def __os_match(os):
-    return (os == __CURRENT_PLATFORM)
+    return (os == sublime.platform())
 
 
 Qualifications.add_qual("host", __host_match)
