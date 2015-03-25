@@ -241,7 +241,8 @@ class LineMessageSource(object):
 
     def get_icon_path(self):
         pth0 = "Packages/SublimeMessages/"
-        if not os.path.isdir(pth0):
+        pth0_full = sublime.packages_path() + '/../' + pth0
+        if not os.path.isdir(pth0_full):
             pth0 = "Packages/Messages/"
 
         pth = multiconf.get(self.settings, "icon_style", None)
